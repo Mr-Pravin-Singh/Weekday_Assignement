@@ -1,0 +1,87 @@
+.job-search-form {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.job-search-form label,
+.job-search-form select,
+.job-search-form input,
+.job-search-form button {
+  margin-bottom: 10px;
+}
+
+.job-search-form label {
+  flex-basis: 100%;
+}
+
+.job-search-form select,
+.job-search-form input {
+  flex-basis: calc(50% - 10px);
+}
+
+.job-search-form button {
+  flex-basis: 100%;
+}
+
+@media (min-width: 768px) {
+  .job-search-form label,
+  .job-search-form select,
+  .job-search-form input,
+  .job-search-form button {
+    margin-bottom: 0;
+  }
+
+  .job-search-form label {
+    flex-basis: auto;
+    margin-right: 10px;
+  }
+
+  .job-search-form select,
+  .job-search-form input {
+    flex-basis: auto;
+  }
+
+  .job-search-form button {
+    flex-basis: auto;
+    margin-left: 10px;
+  }
+}
+
+/*  css for heading barr */
+/* Header.css */
+.header {
+  background-color: #333;
+}
+
+.nav-list {
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.nav-list li {
+  padding: 10px;
+}
+
+.nav-list li a {
+  color: #fff;
+  text-decoration: none;
+}
+
+/* Media query for responsiveness */
+@media screen and (max-width: 768px) {
+  .nav-list {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .nav-list li {
+    padding: 5px;
+  }
+  .header {
+    background-color: #333;
+    height: 180px;
+  }
+}
