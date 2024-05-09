@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import "./Jobcard.css";
 
-const JobSearchForm = ({ onSearch }) => {
+const App = ({ onSearch }) => {
   const [role, setRole] = useState("");
   const [experience, setExperience] = useState("");
   const [remote, setRemote] = useState("");
@@ -11,12 +11,12 @@ const JobSearchForm = ({ onSearch }) => {
   const [companyName, setCompanyName] = useState("");
   const [allCardData, setAllCardData] = useState([]);
   const [page, setPage] = useState(0);
-  uniqueJobRole = [];
-  uniqueBasePay = [];
-  uniqueLocation = [];
-  uniqueExperience = [];
-  uniqueSearchResult = [];
-  filteredDataArray = [];
+  var uniqueJobRole = [];
+  var uniqueLocation = [];
+  var uniqueExperience = [];
+  var uniqueSearchResult = [];
+  var filteredDataArray = [];
+  var uniqueBasePay = [];
   const getAllCardData = async () => {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -33,7 +33,7 @@ const JobSearchForm = ({ onSearch }) => {
     };
     const response = await fetch(
       "https://api.weekday.technology/adhoc/getSampleJdJSON",
-      requestOptions
+      requestOptions,
     );
     if (!response.ok) {
       throw new Error("Network response was not ok");
@@ -45,7 +45,7 @@ const JobSearchForm = ({ onSearch }) => {
       "get results data is",
       allCardData.length,
       "jkdsaf",
-      JSON.stringify(data)
+      JSON.stringify(data),
     );
     // setTotalCount(data.totalCount);
   };
@@ -88,7 +88,7 @@ const JobSearchForm = ({ onSearch }) => {
     setCompanyName(query);
     // Filter the data based on the search query
     const filtered = allCardData.companyName.filter((item) =>
-      item.toLowerCase().includes(query.toLowerCase())
+      item.toLowerCase().includes(query.toLowerCase()),
     );
     setFilteredData(filtered);
   };
@@ -209,4 +209,4 @@ const JobSearchForm = ({ onSearch }) => {
   );
 };
 
-export default JobSearchForm;
+export default App;
