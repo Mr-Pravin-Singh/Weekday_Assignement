@@ -1,4 +1,3 @@
-// JobSearchForm.js
 import React, { useState, useEffect } from "react";
 import MainComponent from "./MainComponent";
 import "./Jobcard.css";
@@ -24,7 +23,7 @@ const App = ({ onSearch }) => {
     myHeaders.append("Content-Type", "application/json");
 
     const body = JSON.stringify({
-      limit: 970,
+      limit: 65,
       offset: 0,
     });
 
