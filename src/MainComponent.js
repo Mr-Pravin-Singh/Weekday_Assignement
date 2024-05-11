@@ -1,4 +1,3 @@
-// import JobCard from "./Jobcard";
 import React, { useEffect, useState } from "react";
 import JobCard from "./Jobcard";
 import "./Jobcard.css";
