@@ -1,6 +1,7 @@
-// JobSearchForm.js
 import React, { useState, useEffect } from "react";
+import MainComponent from "./MainComponent";
 import "./Jobcard.css";
+import JobCard from "./Jobcard";
 
 const App = ({ onSearch }) => {
   const [role, setRole] = useState("");
@@ -22,7 +23,7 @@ const App = ({ onSearch }) => {
     myHeaders.append("Content-Type", "application/json");
 
     const body = JSON.stringify({
-      limit: 100,
+      limit: 65,
       offset: 0,
     });
 
@@ -39,7 +40,6 @@ const App = ({ onSearch }) => {
       throw new Error("Network response was not ok");
     }
     const data = await response.json();
-    // setAllCardData(data.jdList);
     setAllCardData((prevData) => [...prevData, ...data.jdList]);
     console.log(
       "get results data is",
@@ -47,7 +47,6 @@ const App = ({ onSearch }) => {
       "jkdsaf",
       JSON.stringify(data),
     );
-    // setTotalCount(data.totalCount);
   };
 
   useEffect(() => {
@@ -59,6 +58,9 @@ const App = ({ onSearch }) => {
     return () => window.removeEventListener("scroll", handleScrollInfinite);
   }, []);
   const handleScrollInfinite = async () => {
+    // console.log("scroll height", document.documentElement.scrollHeight);
+    // console.log("window height", window.innerHeight);
+    // console.log("scroll height top", document.documentElement.scrollTop);
     try {
       if (
         window.innerHeight + document.documentElement.scrollTop + 1 >=
@@ -71,45 +73,18 @@ const App = ({ onSearch }) => {
     }
   };
 
-  useEffect(() => {
-    // getAllCardData();
-  }, []);
-
   const onRoleSelect = (e) => {
     setRole(e.target.value);
   };
-
   const onMinExperience = (e) => {
     setExperience(e.target.value);
   };
-
-  const handleInputChange = (e) => {
-    const query = e.target.value;
-    setCompanyName(query);
-    // Filter the data based on the search query
-    const filtered = allCardData.companyName.filter((item) =>
-      item.toLowerCase().includes(query.toLowerCase()),
-    );
-    setFilteredData(filtered);
-  };
-  // const handleSearch = () => {
-  //   // Call the onSearch function passed from the parent component
-  //   onSearch({sw
-  //     role,
-  //     numEmployees,
-  //     experience,
-  //     remote,
-  //     minSalary,
-  //     companyName,
-  //   });
-  // };
 
   return (
     <header className="header">
       <nav>
         <ul className="nav-list">
           <li>
-            {/* <label htmlFor="role">Role:</label> */}
             <select id="role" value={role} onChange={onRoleSelect}>
               <option value="">Role</option>
               {
@@ -121,7 +96,6 @@ const App = ({ onSearch }) => {
               {uniqueJobRole.map((employee) => (
                 <option value={employee}>{employee}</option>
               ))}
-              {/* Add options for roles */}
             </select>
           </li>
 
@@ -202,9 +176,45 @@ const App = ({ onSearch }) => {
               placeholder="compny Name"
               onChange={(e) => setCompanyName(e.target.value)}
             />
+            {/* <button onClick={handleSearch}>Search</button> */}
           </li>
         </ul>
       </nav>
+      {console.log("all data issidfd", allCardData)}
+      {allCardData.forEach((el) => {
+        if (
+          el.jobRole === role ||
+          el.maxJdSalary === minSalary ||
+          el.location === location ||
+          el.location == remote ||
+          el.minJdSalary == minSalary ||
+          el.minExp == experience
+        ) {
+          filteredDataArray.push(el);
+          console.log("filterd arrya", el, companyName);
+        }
+        if (
+          companyName.trim() !== "" &&
+          el.companyName.toLowerCase().includes(companyName.toLowerCase())
+        ) {
+          filteredDataArray.push(el);
+          // Filter the data based on the search query
+          console.log("now filtering", companyName);
+        }
+      })}
+
+      {console.log("new unique array", uniqueSearchResult, filteredDataArray)}
+      <div className="job-cards-container">
+        {filteredDataArray.length != 0 ? (
+          filteredDataArray.map((job, index) => (
+            <JobCard key={index} job={job} />
+          ))
+        ) : (
+          <div>
+            <MainComponent />
+          </div>
+        )}
+      </div>
     </header>
   );
 };
